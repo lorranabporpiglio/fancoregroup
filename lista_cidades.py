@@ -4,7 +4,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 # Lista completa de cidades
-cities_list = [
+cities_list = [city.lower() for city in [
     "Abaetetuba", "Abreu e Lima", "Açailândia", "Acaraú", "Águas Lindas de Goiás", "Alagoinhas", "Alegrete", "Alenquer", "Alfenas", 
     "Almirante Tamandaré", "Altamira", "Alvorada", "Americana", "Amparo", "Ananindeua", "Anápolis", "Angra dos Reis", "Aparecida de Goiânia", 
     "Apucarana", "Aquiraz", "Aracaju", "Aracati", "Aracruz", "Araguaína", "Araguari", "Arapiraca", "Araranguá", "Araras", "Araripina", "Araruama", 
@@ -51,15 +51,15 @@ cities_list = [
     "Santo Antônio de Jesus", "Santos", "São Vicente", "Sargento", "Serra", "Serra Talhada", "Sete Lagoas", "Simões Filho", "Sobral", 
     "Socorro", "Sorriso", "Sorocaba", "Sumaré", "Taboão da Serra", "Taguatinga", "Teixeira de Freitas", "Teresina", "Timon", "Toledo", "Tubarão", 
     "Uberaba", "Uberlândia", "Uruaçu", "Varginha", "Vila Velha", "Vitória", "Votorantim", "Volta Redonda"
-]
+]] 
 
 # Modelo de entrada
 class MessageRequest(BaseModel):
     city: str
 
-# Função para verificar se a cidade está na lista
+# Função para verificar se a cidade está na lista (convertendo para minúsculas antes da verificação)
 def is_city_valid(city_name: str) -> bool:
-    return city_name in cities_list
+    return city_name.lower() in cities_list
 
 # Endpoint para verificar cidade
 @app.post("/verify_city")
